@@ -1,0 +1,23 @@
+#box-container {
+    max-height: 900px;
+    margin: 50px auto 0;
+}
+
+#box-container header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#box-container h1 {
+    font-size: 30px;
+    padding-left: 15px;
+    margin-left: 15px;
+    border-left: 1px solid #ddd;
+    color: black;
+}
+
+#box-container i{
+    font-size: -webkit-xxx-large;
+    color: black;
+}
