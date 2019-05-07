@@ -6,7 +6,7 @@ import './styles.css';
 
 export default class Delete extends Component {
     state = {
-        produto: []
+        todo: []
     };
 
     componentDidMount() {
@@ -15,30 +15,25 @@ export default class Delete extends Component {
     }
 
     carregaProd = async () => {
-        const response = await api.get('/produtos');        //acessa /produtos
+        const response = await api.get('/todo');        //acessa /produtos
 
-        this.setState({ produto: response.data.data });
+        this.setState({ todo: response.data.data });
         //console.log(response.data.data);                //mostra os produtos no console
     }
 
     delProdutos = _ => {
-        const { produto } = this.state;
-        fetch(`http://localhost:4000/produtos/delete?idproduto=${produto.idproduto}`)
+        const { todo } = this.state;
+        fetch(`http://localhost:4000/todo/delete?idtodo=${todo.idtodo}`)
             .then(this.carregaProd)
             .catch(err => console.error(err))
     }
 
     render() {
-        const { produto } = this.state;
-        return (
-            <div className='lista-produto-del'>
-                <input className='inputProdNome' placeholder="ID do Produto a ser Deletado"
-                    value={produto.idproduto} onChange={e => this.setState({ produto: { ...produto, idproduto: e.target.value }})}/>
-
-                    <a href="" class='myButton' onClick={this.delProdutos}>Del Produto</a>
-                    
-                    <a href="/" class='myButton'>Voltar para página Inicial</a>
-            </div>
+        const { todo } = this.state;
+        return (<li key={todo.idtodo}>
+            {todo.descricao}
+            <a href="#" onClick={this.delProdutos}>Del</a>
+        </li>
         );
     }
 }

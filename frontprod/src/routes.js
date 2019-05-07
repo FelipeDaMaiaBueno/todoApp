@@ -15,7 +15,7 @@ const Routes = () => (
         <Route path="/produtos/add" component={Create} />
         <Route path="/produtos/delete" component={Delete} />
         <Route path="/produtos/update" component={Update} />
-        <Route path="/produtos/teste" component={Teste} />
+        <Route path="/todo/teste" component={Teste} />
         
         </Switch>
     </BrowserRouter>

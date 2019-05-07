@@ -82,8 +82,8 @@ app.get('/todo/count', (req, res) => {
 
 //insere
 app.get('/todo/add', (req, res) => {                         //to controller.js ou routes
-    const { taskdescription, estadoatual } = req.query;
-    const InsereTask = `INSERT INTO todo (taskdescription, estadoatual) VALUES('${taskdescription}', '${estadoatual}')`;
+    const { descricao, feito } = req.query;
+    const InsereTask = `INSERT INTO todo (descricao, feito) VALUES('${descricao}', '${feito}')`;
     conexao.query(InsereTask, (err, results) => {
         if (err) {
             return res.send(err)
@@ -111,8 +111,8 @@ app.get('/todo/delete', (req, res) => {                           //to controlle
 
 //atualiza prod
 app.get('/todo/update', (req, res) => {                             //to controller.js
-    const { idtodo, taskdescription, estadoatual} = req.query;
-    const UpdateTask = `UPDATE todo SET taskdescription = '${taskdescription}', estadoatual = '${estadoatual}' WHERE idtodo = ${idtodo}`;
+    const { idtodo, descricao, feito} = req.query;
+    const UpdateTask = `UPDATE todo SET descricao = '${descricao}', feito = '${feito}' WHERE idtodo = ${idtodo}`;
     conexao.query(UpdateTask, (err, results) => {
         if (err) {
             return res.send(err)

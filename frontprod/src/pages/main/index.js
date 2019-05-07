@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import api from '../../services/api';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Fab from '@material-ui/core/Fab';
+import Icon from '@material-ui/core/Icon';
 
 import './styles.css';
 
 
 export default class Main extends Component {
     state = {
-        produto: [],
+        todo: [],
         pagePosition: '',
         maxPage: '',
         limit: ''
@@ -20,9 +24,9 @@ export default class Main extends Component {
     }
 
     carregaProd = async () => {
-        const response = await api.get('/produtos');        //acessa /produtos
+        const response = await api.get('/todo');        //acessa /produtos
 
-        this.setState({ produto: response.data.data });
+        this.setState({ todo: response.data.data });
         //console.log(response.data.data);                //mostra os produtos no console
     }
 
@@ -37,7 +41,7 @@ export default class Main extends Component {
 
     nextPage = async () => {
         this.pagePosition++;
-        const response = await api.get(`/produtos?page=${this.pagePosition}&limit=${this.limit}`);
+        const response = await api.get(`/todo?page=${this.pagePosition}&limit=${this.limit}`);
         this.setState({ produtos: response.data.data });
         const { produtos } = this.state;
         if (produtos.length === 0) {
@@ -45,31 +49,42 @@ export default class Main extends Component {
         }
     }
 
+
+
     render() {
-        const { produto } = this.state;
+        const { todo } = this.state;
 
         return (
             <div className='lista-produto'>
-                {produto.map(produto => {
-                    return <article key={produto.idproduto}>
-                        <strong>{produto.nome}</strong>
-                        <p><b>R$ {produto.preco}</b></p>
-                        <p><b> {produto.descricao}</b></p>
-                        <p><b> {produto.url}</b></p>
-                        <p><b>ID {produto.idproduto}</b></p>
-                    </article>
-                })}
+                {todo.map(todo => {
+                    return <div key={todo.idtodo} class="flexfather produto">
+                        <div class="flexson checkboxFeito">{todo.feito}</div>
+                        <div class="flexson">
+                            <p>
+                                {todo.descricao}
+                                {/* <strong>{todo.descricao}</strong>
+                                <span>{todo.idtodo}</span> */}
+                            </p>
+                        </div>
+                        <div class="flexson opcaoBtn editbtn">
+                        <Fab href="/produtos/update" color="default" aria-label="Edit" className={todo.fab}>
+                            <Icon>edit_icon</Icon>
+                        </Fab>
+                        </div>
+                        <div class="flexson opcaoBtn">
+                            <IconButton arial-label="Delete" className={todo.margin} >
+                                <DeleteIcon fontSize="large" />
+                            </IconButton>
+                        </div>
+                    </div>
+                }
+                )
+                }
                 <div className="actions">
 
                     <button onClick={this.prevPage}>Anterior</button>
-                    
-                    <a href="/produtos/delete">Excluir</a>
 
                     <a href="/produtos/add">Add Produto</a>
-
-                    <a href="/produtos/update">Editar</a>
-
-                    
 
                     <button onClick={this.nextPage}>Próximo</button>
                 </div>

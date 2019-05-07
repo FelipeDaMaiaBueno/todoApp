@@ -34,3 +34,8 @@
     background: #4B0082;
     color: #fff;
 }
+
+.formControl{
+
+    min-width: 245px !important;
+}

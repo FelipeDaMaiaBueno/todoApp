@@ -4,7 +4,7 @@
     padding: 0 20px;
 }
 
-.lista-produto article{
+.lista-produto produto{
     background: #FFF;
     border: 1px solid #DDD;
     border-radius: 5px;
@@ -12,19 +12,19 @@
     margin-bottom: 20px;
 }
 
-.lista-produto article:hover{
+.lista-produto produto:hover{
     background:rgb(29, 29, 29);
     color: #fff;
 }
 
-.lista-produto article p{
+.lista-produto produto p{
     font-size: 16px;
     color: gray;
     margin-top: 5px;
     line-height: 24px;
 }
 
-.lista-produto article a{
+.lista-produto produto a{
     height: 42px;
     border-radius: 5px;
     border: 2px solid #4B0082;
@@ -40,7 +40,7 @@
     transition: all 0.2s;
 }
 
-.lista-produto article a:hover{
+.lista-produto produto a:hover{
     background: #4B0082;
     color: #fff;
 }
@@ -82,4 +82,33 @@
 .lista-produto .actions a:hover{
     background: rgb(71, 71, 71);
     color: #fff;
+}
+
+.flexfather {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.flexson {
+    flex: 1 1 auto;
+}
+
+.checkboxFeito {
+    max-width: 30px;
+    
+}
+
+.opcaoBtn {
+    max-width: 60px;
+}
+
+.flexson .opcaoBtn .editbtn {
+    width: 38px;
+    height: 37px;
+    color: black;
+}
+
+.produto div.flexson p{
+    height: 100%;
 }
