@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
+import { Link } from 'react-router-dom'
 
 import './styles.css';
 
@@ -34,22 +35,20 @@ export default class Main extends Component {
     prevPage = async () => {
         if (this.pagePosition > 1) {
             this.pagePosition--;
-            const response = await api.get(`/produtos?page=${this.pagePosition}&limit=${this.limit}`);
+            const response = await api.get(`/todo?page=${this.pagePosition}&limit=${this.limit}`);
             this.setState({ produtos: response.data.data });
         }
     }
 
     nextPage = async () => {
         this.pagePosition++;
-        const response = await api.get(`/todo?page=${this.pagePosition}&limit=${this.limit}`);
+        const response = await api.get(`/todo?todo=${this.pagePosition}&limit=${this.limit}`);
         this.setState({ produtos: response.data.data });
         const { produtos } = this.state;
         if (produtos.length === 0) {
             this.prevPage()
         }
     }
-
-
 
     render() {
         const { todo } = this.state;
@@ -62,19 +61,21 @@ export default class Main extends Component {
                         <div class="flexson">
                             <p>
                                 {todo.descricao}
-                                {/* <strong>{todo.descricao}</strong>
-                                <span>{todo.idtodo}</span> */}
                             </p>
                         </div>
                         <div class="flexson opcaoBtn editbtn">
-                        <Fab href="/produtos/update" color="default" aria-label="Edit" className={todo.fab}>
-                            <Icon>edit_icon</Icon>
-                        </Fab>
+                        <Link to={`todo/update/${todo.idtodo}`}>
+                            <Fab color="default" aria-label="Edit" className={todo.fab}>
+                                <Icon>edit_icon</Icon>
+                            </Fab>
+                        </Link>
                         </div>
                         <div class="flexson opcaoBtn">
+                        <Link to={`todo/delete/${todo.idtodo}`}>
                             <IconButton arial-label="Delete" className={todo.margin} >
                                 <DeleteIcon fontSize="large" />
                             </IconButton>
+                            </Link>
                         </div>
                     </div>
                 }
@@ -84,7 +85,7 @@ export default class Main extends Component {
 
                     <button onClick={this.prevPage}>Anterior</button>
 
-                    <a href="/produtos/add">Add Produto</a>
+                    <a href="/todo/add">Nova Tarefa</a>
 
                     <button onClick={this.nextPage}>Próximo</button>
                 </div>

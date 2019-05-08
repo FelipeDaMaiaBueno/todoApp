@@ -5,35 +5,36 @@ import api from '../../services/api';
 import './styles.css';
 
 export default class Delete extends Component {
-    state = {
-        todo: []
-    };
+    state = { todo: [] };
 
     componentDidMount() {
         //metodo executado quando o componente é mostrado em tela
-        this.carregaProd();
+        const {idtodo} = this.props.match.params;
+        this.carregaProd(idtodo);
     }
 
-    carregaProd = async () => {
-        const response = await api.get('/todo');        //acessa /produtos
+    carregaProd = async (id) => {
+        const response = await api.get('/todo/delete/'+id);        //acessa /produtos
 
-        this.setState({ todo: response.data.data });
-        //console.log(response.data.data);                //mostra os produtos no console
+        console.log(response);                //mostra os produtos no console
+        this.setState({ todo: response.data[0] });
     }
 
     delProdutos = _ => {
         const { todo } = this.state;
-        fetch(`http://localhost:4000/todo/delete?idtodo=${todo.idtodo}`)
+        fetch(`http://localhost:4000/todo/delete/${todo.idtodo}`)
             .then(this.carregaProd)
             .catch(err => console.error(err))
     }
 
     render() {
         const { todo } = this.state;
-        return (<li key={todo.idtodo}>
-            {todo.descricao}
-            <a href="#" onClick={this.delProdutos}>Del</a>
-        </li>
+
+        return (
+            <div className='lista-produto-del'>
+                <h1>Tarefa Apagada</h1>
+                <a href="/" class='myButton'>Voltar para página Inicial</a>
+            </div>
         );
     }
 }

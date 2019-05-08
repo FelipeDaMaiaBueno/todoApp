@@ -4,42 +4,28 @@ import FormControl from '@material-ui/core/FormControl';
 
 
 import './styles.css';
-import { Select, InputLabel, MenuItem } from '@material-ui/core';
+import { Select, MenuItem } from '@material-ui/core';
 
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    formControl: {
-        margin: theme.spacing.unit,
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing.unit * 2,
-    },
-});
 
 export default class Update extends Component {
-    state = {
-        todo: []
-    };
+    state = { todo: [] };
 
     componentDidMount() {
         //metodo executado quando o componente é mostrado em tela
-        this.carregaProd();
+        const {idtodo} = this.props.match.params;
+        this.carregaProd(idtodo);
     }
 
-    carregaProd = async () => {
-        const response = await api.get('/todo');        //acessa /produtos
+    carregaProd = async (id) => {
+        const response = await api.get('/todo/update/'+id);        //acessa /produtos
 
-        this.setState({ todo: response.data.data });
-        //console.log(response.data.data);                //mostra os produtos no console
+        console.log(response);                //mostra os produtos no console
+        this.setState({ todo: response.data[0] });
     }
 
     updateProd = _ => {
         const { todo } = this.state;
-        fetch(`http://localhost:4000/todo/update?idtodo=${todo.idtodo}&descricao=${todo.descricao}&feito=${todo.feito}`)
+        fetch(`http://localhost:4000/todo/update/${todo.idtodo}`)
             .then(this.carregaProd)
             .catch(err => console.error(err))
     }
@@ -49,9 +35,9 @@ export default class Update extends Component {
 
         return (
             <div className='lista-produto-update'>
-                <input id='inputProdUp' placeholder="ID da Tarefa ser Atualizada"
+                <input id='inputProdUp' disabled
                     value={todo.idtodo} onChange={e => this.setState({ todo: { ...todo, idtodo: e.target.value } })} />
-                <input id='inputProdUp' placeholder="Nova Descrição da Tarefa"
+                <input id='inputProdUp'
                     value={todo.descricao} onChange={e => this.setState({ todo: { ...todo, descricao: e.target.value } })} />
 
                     <FormControl className="formControl">
@@ -73,7 +59,7 @@ export default class Update extends Component {
                         </Select>
                     </FormControl>
 
-                <a href="" class='myButton' onClick={this.updateProd}>Atualiza Tarefa</a>
+                <a class='myButton' onClick={this.updateProd}>Atualiza Tarefa</a>
                 <a href="/" class='myButton'>Voltar para página Inicial</a>
             </div>
         );

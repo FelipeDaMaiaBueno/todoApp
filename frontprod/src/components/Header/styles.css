@@ -21,3 +21,118 @@
     font-size: -webkit-xxx-large;
     color: black;
 }
+
+.flexfather {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.flexson {
+    flex: 1 1 auto;
+}
+
+.checkboxFeito {
+    max-width: 30px;
+    
+}
+
+.opcaoBtn {
+    max-width: 60px;
+}
+
+.flexson .opcaoBtn .editbtn {
+    width: 38px;
+    height: 37px;
+    color: black;
+}
+
+.produto div.flexson p{
+    height: 100%;
+}
+
+.lista-produto{
+    max-width: 700px;
+    margin: 20px auto 0;
+    padding: 0 20px;
+}
+
+.lista-produto produto{
+    background: #FFF;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.lista-produto produto:hover{
+    background:rgb(29, 29, 29);
+    color: #fff;
+}
+
+.lista-produto produto p{
+    font-size: 16px;
+    color: gray;
+    margin-top: 5px;
+    line-height: 24px;
+}
+
+.lista-produto produto a{
+    height: 42px;
+    border-radius: 5px;
+    border: 2px solid #4B0082;
+    background: none;
+    margin-top: 10px;
+    color: #4B0082;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.lista-produto produto a:hover{
+    background: #4B0082;
+    color: #fff;
+}
+
+.lista-produto .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.lista-produto .actions button{
+    padding: 10px;
+    border-radius: 5px;
+    border: 0;
+    background: black;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.lista-produto .actions button:hover{
+    background: rgb(71, 71, 71);
+    color: #fff;
+}
+
+.lista-produto .actions a{
+    padding: 10px;
+    border-radius: 5px;
+    border: 0;
+    background: gray;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.lista-produto .actions a:hover{
+    background: rgb(71, 71, 71);
+    color: #fff;
+}

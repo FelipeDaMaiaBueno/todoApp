@@ -1,4 +1,6 @@
 import React from 'react';
+import { Label } from 'semantic-ui-react'
+
 
 import "../Header/styles.css";
 
@@ -7,8 +9,8 @@ import "../Header/styles.css";
 
 const Header = () => (
     <div id="box-container">
-        <header> 
-        <i class="fas fa-crow"></i>
+        <header>
+            <i class="fas fa-crow"></i>
             <h1>To Do</h1>
         </header>
     </div>

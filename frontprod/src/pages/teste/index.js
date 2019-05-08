@@ -1,32 +1,12 @@
-import React, { Component } from 'react';
-import api from '../../services/api';
-import Todo from '../../components/todo';
+import React from 'react';
 
-export default class Teste extends Component{
+const Teste = (props) => {
+    return (
+      <div>
+        <h1>Teste</h1>
+        Essa página equivale a tarefa {props.params.idtodo}
+      </div>
+    );
+};
 
-      state = {
-        todos: []
-      };
-
-      render() {
-        return (
-          <div className="App">
-            <ul>
-            {
-              this.state.todos.map((todo) =>{
-                return (<Todo 
-                  idtodo={todo.idtodo}>
-                  {todo.descricao}
-                  </Todo>)
-              })
-            }
-            </ul>
-          </div>
-        );
-      }
-
-
-
-
-
-}
+export default Teste;

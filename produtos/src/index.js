@@ -66,6 +66,21 @@ app.get('/todo', (req, res) => {
     }
 });
 
+//pega uma task pelo id
+app.get('/todo/update/:id', (req, res) =>{
+    const {id} = req.params;
+    const selectTodoId = `SELECT * FROM todo WHERE idtodo = '${id}'`;
+    conexao.query(selectTodoId, (err, results) => {
+        if (err) {
+            return res.send(err)
+        }
+        else {
+            console.log('Buscou a tarefa pelo id')
+            return res.send(results);
+        }
+    });
+});
+
 //numero total de tarefas
 app.get('/todo/count', (req, res) => {
     const contaProd = `SELECT COUNT(idtodo) as totalCount FROM todo`;
@@ -74,7 +89,7 @@ app.get('/todo/count', (req, res) => {
             return res.send(err)
         }
         else {
-            console.log('funfou')
+            console.log('Contou as paginas')
             return res.send(results);
         }
     });
@@ -89,16 +104,16 @@ app.get('/todo/add', (req, res) => {                         //to controller.js 
             return res.send(err)
         }
         else {
-            console.log('funfou')
+            console.log('Tarefa adicionada')
             return res.send('Tarefa adicionada com sucesso');
         }
     });
 });
 
 //del pelo id
-app.get('/todo/delete', (req, res) => {                           //to controller.js
-    const { idtodo } = req.query;
-    const Deletetask = `DELETE FROM todo WHERE idtodo = '${idtodo}' limit 1`;     //deleta id mais antigo
+app.get('/todo/delete/:id', (req, res) => {                           //to controller.js
+    const {id} = req.params;
+    const Deletetask = `DELETE FROM todo WHERE idtodo = '${id}' `;     //deleta id mais antigo
     conexao.query(Deletetask, (err, results) => {
         if (err) {
             return res.send(err)
