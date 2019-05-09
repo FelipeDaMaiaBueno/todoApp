@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import api from '../../services/api';
 import FormControl from '@material-ui/core/FormControl';
 
-
 import './styles.css';
 import { Select, MenuItem } from '@material-ui/core';
 
@@ -13,36 +12,46 @@ export default class Update extends Component {
     componentDidMount() {
         //metodo executado quando o componente é mostrado em tela
         const {idtodo} = this.props.match.params;
-        this.carregaProd(idtodo);
-    }
+
+            this.carregaProd(idtodo);
+        }
+        
 
     carregaProd = async (id) => {
-        const response = await api.get('/todo/update/'+id);        //acessa /produtos
+        const response = await api.get('/todo/select/'+id);        
 
-        console.log(response);                //mostra os produtos no console
+        if (Object.keys(response.data).length != 0){
         this.setState({ todo: response.data[0] });
+        // console.log(this.state.todo)
+        }
+        else{
+            return console.log("ERRO ID NÃO ENCONTRADO")
+        }
     }
 
     updateProd = _ => {
         const { todo } = this.state;
-        fetch(`http://localhost:4000/todo/update/${todo.idtodo}`)
-            .then(this.carregaProd)
+        fetch(`http://localhost:4000/todo/update?id=${todo.idtodo}&descricao=${todo.descricao}&feito=${todo.feito}`)
+            .then(e => {
+                window.location="/"
+            })
             .catch(err => console.error(err))
     }
 
     render() {
-        const { todo } = this.state;
+        const {todo} = this.state;
 
         return (
             <div className='lista-produto-update'>
-                <input id='inputProdUp' disabled
-                    value={todo.idtodo} onChange={e => this.setState({ todo: { ...todo, idtodo: e.target.value } })} />
-                <input id='inputProdUp'
+                <h3>ID da Tarefa</h3>
+                <input id='inputProdUpIDTODO' value={todo.idtodo} disabled/>
+                <h3>Descrição da Tarefa</h3>
+                <input id='inputProdUpDESC'
                     value={todo.descricao} onChange={e => this.setState({ todo: { ...todo, descricao: e.target.value } })} />
-
+                    <h3>Estado da Tarefa</h3>
                     <FormControl className="formControl">
                         <Select
-                            value={this.state.feito}
+                            value={todo.feito}
                             onChange={e => {
                                 this.setState({ todo: { ...todo, feito: e.target.value }});
                                 this.setState({ [e.target.name]: e.target.value });

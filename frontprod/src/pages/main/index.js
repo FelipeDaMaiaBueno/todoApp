@@ -36,16 +36,16 @@ export default class Main extends Component {
         if (this.pagePosition > 1) {
             this.pagePosition--;
             const response = await api.get(`/todo?page=${this.pagePosition}&limit=${this.limit}`);
-            this.setState({ produtos: response.data.data });
+            this.setState({ todo: response.data.data });
         }
     }
 
     nextPage = async () => {
         this.pagePosition++;
         const response = await api.get(`/todo?todo=${this.pagePosition}&limit=${this.limit}`);
-        this.setState({ produtos: response.data.data });
-        const { produtos } = this.state;
-        if (produtos.length === 0) {
+        this.setState({ todo: response.data.data });
+        const { todo } = this.state;
+        if (todo.length === 0) {
             this.prevPage()
         }
     }
@@ -73,7 +73,7 @@ export default class Main extends Component {
                         <div class="flexson opcaoBtn">
                         <Link to={`todo/delete/${todo.idtodo}`}>
                             <IconButton arial-label="Delete" className={todo.margin} >
-                                <DeleteIcon fontSize="large" />
+                                <DeleteIcon fontSizeAdjust="large" />
                             </IconButton>
                             </Link>
                         </div>

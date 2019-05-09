@@ -10,9 +10,10 @@ import "../Header/styles.css";
 const Header = () => (
     <div id="box-container">
         <header>
-            <i class="fas fa-crow"></i>
+            <i class="fas fa-tasks"></i>
             <h1>To Do</h1>
         </header>
+
     </div>
 );
 

@@ -4,7 +4,6 @@ const mysql = require('mysql');
 
 const app = express();
 
-
 const selectAllProducts = 'SELECT * FROM todo';
 
 const conexao = mysql.createConnection({            //to config.js
@@ -23,8 +22,6 @@ conexao.connect(err => {                             //to config.js
         console.log('Conectado')
     }
 });
-
-//console.log(conexao);        //verifica a conexão
 
 app.use(cors());                //to index.js
 
@@ -66,16 +63,20 @@ app.get('/todo', (req, res) => {
     }
 });
 
-//pega uma task pelo id
-app.get('/todo/update/:id', (req, res) =>{
+//busca uma task pelo id
+app.get('/todo/select/:id', (req, res) =>{
     const {id} = req.params;
     const selectTodoId = `SELECT * FROM todo WHERE idtodo = '${id}'`;
     conexao.query(selectTodoId, (err, results) => {
-        if (err) {
+        if (!results) {
+            return res.status(404).json('')
+        }
+        else if (err) {
+            
             return res.send(err)
         }
         else {
-            console.log('Buscou a tarefa pelo id')
+            console.log('Tarefa Selecionada')
             return res.send(results);
         }
     });
@@ -95,7 +96,7 @@ app.get('/todo/count', (req, res) => {
     });
 });
 
-//insere
+//insere uma nova tarefa
 app.get('/todo/add', (req, res) => {                         //to controller.js ou routes
     const { descricao, feito } = req.query;
     const InsereTask = `INSERT INTO todo (descricao, feito) VALUES('${descricao}', '${feito}')`;
@@ -110,7 +111,7 @@ app.get('/todo/add', (req, res) => {                         //to controller.js 
     });
 });
 
-//del pelo id
+//deleta uma tarefa 
 app.get('/todo/delete/:id', (req, res) => {                           //to controller.js
     const {id} = req.params;
     const Deletetask = `DELETE FROM todo WHERE idtodo = '${id}' `;     //deleta id mais antigo
@@ -124,10 +125,10 @@ app.get('/todo/delete/:id', (req, res) => {                           //to contr
     })
 });
 
-//atualiza prod
+//atualiza uma tarefa tarefa
 app.get('/todo/update', (req, res) => {                             //to controller.js
-    const { idtodo, descricao, feito} = req.query;
-    const UpdateTask = `UPDATE todo SET descricao = '${descricao}', feito = '${feito}' WHERE idtodo = ${idtodo}`;
+    const { id, descricao, feito} = req.query;
+    const UpdateTask = `UPDATE todo SET descricao = '${descricao}', feito = '${feito}' WHERE idtodo = ${id}`;
     conexao.query(UpdateTask, (err, results) => {
         if (err) {
             return res.send(err)

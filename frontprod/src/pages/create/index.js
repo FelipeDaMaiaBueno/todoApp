@@ -27,7 +27,9 @@ export default class Create extends Component {
     addProdutos = _ => {
         const { todo } = this.state;
         fetch(`http://localhost:4000/todo/add?descricao=${todo.descricao}&feito=${todo.feito}`)
-            .then(this.carregaProd)
+        .then(e => {
+            window.location="/"
+        })
             .catch(err => console.error(err))
     }
 
@@ -36,9 +38,10 @@ export default class Create extends Component {
         const { todo } = this.state;
         return (
             <div className='lista-produto-add'>
-                <input id='inputProdNome' placeholder="Nova Tarefa"
+                <h3>Nova Tarefa</h3>
+                <input id='inputProdNome' placeholder="Digite a descrição da nova tarefa"
                     value={todo.descricao} onChange={e => this.setState({ todo: { ...todo, descricao: e.target.value } })} />
-
+                <h3>Estado da tarefa</h3>
                 <FormControl className="formControl">
                     <Select
                         value={this.state.feito}
@@ -59,7 +62,7 @@ export default class Create extends Component {
                 </FormControl>
 
 
-                <a href ="" class='myButton' onClick={this.addProdutos}>Add Produto</a>
+                <a className="btn-add" class='myButton' onClick={this.addProdutos}>Adicionar tarefa</a>
                 <a href="/" class='myButton'>Voltar para página Inicial</a>
             </div>
 

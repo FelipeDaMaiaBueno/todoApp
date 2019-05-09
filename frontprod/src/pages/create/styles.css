@@ -17,10 +17,10 @@
 .myButton{
     height: 42px;
     border-radius: 5px;
-    border: 2px solid #4B0082;
+    border: 2px solid rgba(0, 0, 0, 0.87);
     background: none;
     margin-top: 10px;
-    color: #4B0082;
+    color: rgb(29, 29, 29);
     font-weight: bold;
     font-size: 16px;
     text-decoration: none;
@@ -28,10 +28,11 @@
     justify-content: center;
     align-items: center;
     transition: all 0.2s;
+    cursor: pointer;
 }
 
 .myButton:hover {
-    background: #4B0082;
+    background: rgb(71, 71, 71);
     color: #fff;
 }
 
